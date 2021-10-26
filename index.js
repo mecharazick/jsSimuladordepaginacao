@@ -1,3 +1,10 @@
+/* Integrantes:
+Alisson Carvalho Vasconcelos - 11511EMT016
+Betania Assunção - 11411BSI243
+João Pedro Abi-jaudi P. Ferreira - 11511EMT015
+Lucas Pinheiro Moraes - 11721EMT001
+*/
+
 const express = require("express");
 const cors = require("cors");
 const router = require("./src/routes");

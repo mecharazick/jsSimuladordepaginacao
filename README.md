@@ -1,18 +1,34 @@
 # jsSimuladordepaginacao
+```
+Integrantes do grupo: 
 
+Alisson Carvalho Vasconcelos - 11511EMT016
+Betania Assunção - 11411BSI243
+João Pedro Abi-jaudi P. Ferreira - 11511EMT015
+Lucas Pinheiro Moraes - 11721EMT001
+
+```
 Esse projeto compreende um programa que simula o comportamento de da Unidade de Gestão de Memória de um Sistema Operacional.
 
 Ele foi codificado utilizando Javascript ES6 e utilizando o Node.js como interpretador para a execução do código.
+
 A versão utilizada do Node.js foi a v14.7.0 LTS, para permitir reprodução posterior do código.
+
 Repositório do GitHub: [jsSimuladordepaginacao](https://github.com/mecharazick/jsSimuladordepaginacao)
 # Sumário
 
 1 - [Como utilizar](https://github.com/mecharazick/jsSimuladordepaginacao#como-utilizar)
+
 2 - [Dependências](https://github.com/mecharazick/jsSimuladordepaginacao#dependências)
+
 3 - [Estrutura do projeto](https://github.com/mecharazick/jsSimuladordepaginacao#estrutura-do-projeto)
+
 4 - [Estrutura do simulador](https://github.com/mecharazick/jsSimuladordepaginacao##estrutura-do-simulador)
+
 4 - [Algoritmos de substituição de página](https://github.com/mecharazick/jsSimuladordepaginacao#algoritmos-de-substituição-de-página)
+
 5 - [Referências](https://github.com/mecharazick/jsSimuladordepaginacao#referências)
+
 
 # Como utilizar
 
@@ -120,10 +136,20 @@ O algoritmo SC foi implementado utilizando um sistema semelhante ao do LRU, uma 
 O algoritmo OTM é o mais interessante deles, pois requer a utilização de um comportamento impossível de ser realizado na vida real de um SO. Para ele, ao selecionar a página vítima é primeiro analisada a fila de requisição de página para ver qual a página em memória que levará mais tempo para ser requerida novamente. Essa página será marcada como vítima e removida da memória.
 O interessante desse algoritmo é que na vida real é impossível saber quando uma página será requerida novamente, por isso esse é um algoritmo idealizado.
 
+Para a implementação do algoritmo do Working-set Model, foi determinado que o tamanho do working-set da simulação do algoritmo seria igual à quantidade de quadros disponíveis na memória física, de forma a simular a alocação de uma certa quantidade de quadros especificamente para o processo e de forma que ele não ficasse sem espaço na memória. 
+
+Esse algoritmo foi implementado da seguinte forma: Após a determinação do delta do Working-set, e definição de um array para armazenar a lista de entradas de página presentes no Working-set, esse algoritmo faz com que, toda vez que uma nova página é requerida, ele atualize o working-set do processo e verifique se tem alguma página em memória que não está mais no working-set, removendo-a da memória.
+
+Dessa forma, ele consegue manter em memória apenas as páginas mais recentemente utilizadas pelo processo na esperança de que elas continuem sendo as mais utilizadas.
+
 # Referências
 
 {1} [Node.js](https://nodejs.org/en/about/)
+
 {2} [express](https://expressjs.com)
+
 {3} [cors](https://www.npmjs.com/package/cors)
+
 {4} [nodemon](https://www.npmjs.com/package/nodemon)
+
 {5} [ejs](https://ejs.co)

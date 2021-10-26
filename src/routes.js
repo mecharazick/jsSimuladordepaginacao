@@ -11,14 +11,25 @@ router
   .post(async (req, res, next) => {
     const { tableType, ramSize, pageQSize } = req.body;
     const pageQ = genRandomPageRequestQueue(Number(pageQSize));
+    const delta = tableType === "wsm" ? ramSize : false;
     const memoryManagmentUnit = new MMU({
       ramSize: Number(ramSize),
       pagesSize: 10,
+      delta: delta,
     });
     const { pageHits, pageFaults } = await memoryManagmentUnit[tableType](
       pageQ
     );
-    const tableTypeText = (tableType) => {
+    res.render("tables", {
+      tableType: tableTypeText(tableType),
+      delta: delta,
+      ramSize: ramSize,
+      pageQ: pageQ,
+      pageHits: pageHits,
+      pageFaults: pageFaults,
+    });
+
+    function tableTypeText(tableType) {
       switch (tableType) {
         case "fifo":
           return "First-in First-out";
@@ -34,14 +45,7 @@ router
         default:
           break;
       }
-    };
-    res.render("tables", {
-      tableType: tableTypeText(tableType),
-      ramSize: ramSize,
-      pageQ: pageQ,
-      pageHits: pageHits,
-      pageFaults: pageFaults,
-    });
+    }
   });
 
 module.exports = router;

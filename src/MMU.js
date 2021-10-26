@@ -6,6 +6,7 @@ class MMU {
     this.properties = {
       ramSize: properties?.ramSize || 1,
       pagesSize: properties?.pagesSize || 10,
+      delta: properties?.delta,
     };
     this.hits = { fifo: 0, lru: 0, otm: 0, wsm: 0, sc: 0 };
     this.pageFaults = { fifo: 0, lru: 0, otm: 0, wsm: 0, sc: 0 };
@@ -219,7 +220,59 @@ class MMU {
     }
     return { pageHits: this.hits["sc"], pageFaults: this.pageFaults["sc"] };
   }
-  wsm(pageRequestQueue) {}
+  wsm(pageRequestQueue) {
+    //definir delta (intervalo de páginas) para determinar o Working Set que é o conjunto de páginas
+    //principais sendo utilizadas pelo processo e que devem ser armazenadas na memória física
+    this.initEnvironment();
+    const delta = this.properties.delta;
+    let ws = [];
+    for (let i = 0; i < pageRequestQueue.length; i++) {
+      if (this.pageTable.checkIfPageInMemory(pageRequestQueue[i])) {
+        this.hits["wsm"] += 1;
+        const wsUpdates = updateWs([...ws], pageRequestQueue[i]);
+        ws = wsUpdates.ws;
+        if (wsUpdates.oldestPage === 0 || wsUpdates.oldestPage) {
+          const pageFrame = this.pageTable.getPageFrame(wsUpdates.oldestPage);
+          this.physicalMemory[pageFrame] = null;
+          this.frameTable.setFreeFrame(pageFrame);
+          this.pageTable.removeFrame(wsUpdates.oldestPage);
+        }
+        //Caso a página já esteja na memória, passa para a próxima requisição de página na fila
+        continue;
+      } else {
+        this.pageFaults["wsm"] += 1;
+        //verificando se alguma página tem que sair da memória
+        const wsUpdates = updateWs([...ws], pageRequestQueue[i]);
+        ws = wsUpdates.ws;
+        if (wsUpdates.oldestPage === 0 || wsUpdates.oldestPage) {
+          const pageFrame = this.pageTable.getPageFrame(wsUpdates.oldestPage);
+          this.physicalMemory[pageFrame] = null;
+          this.frameTable.setFreeFrame(pageFrame);
+          this.pageTable.removeFrame(wsUpdates.oldestPage);
+        }
+        let freeFrame = this.frameTable.getFreeSlot();
+        //Alocando processo na memória
+        this.physicalMemory[freeFrame] = pageRequestQueue[i];
+        this.frameTable.setOnUseFrame(freeFrame); //Atualizando tabela de frames livres
+        this.pageTable.setFrame(pageRequestQueue[i], freeFrame); //Atualizando referência de páginas
+        continue; //Dá continuidade ao processo
+      }
+    }
+    return { pageHits: this.hits["wsm"], pageFaults: this.pageFaults["wsm"] };
+
+    function updateWs(ws, page) {
+      if (ws.length === delta) {
+        const oldestPage = ws.shift();
+        ws.push(page);
+        if (ws.indexOf(oldestPage) === -1) {
+          return { oldestPage: oldestPage, ws: ws };
+        }
+      } else {
+        ws.push(page);
+      }
+      return { oldestPage: false, ws: ws };
+    }
+  }
 }
 
 module.exports = MMU;

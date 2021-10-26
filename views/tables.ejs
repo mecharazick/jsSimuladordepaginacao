@@ -32,19 +32,29 @@
       <table class="table">
         <thead>
           <tr>
-            <th class = "column">Algoritmo selecionado</th>
-            <th class = "column" style="background-color: #0006">Tamanho de RAM</th>
-            <th class = "column">String de fila de requisição</th>
-            <th class = "column" style="background-color: #0006">Hits</th>
-            <th class = "column">Page Faults</th>
+            <th class="column">Algoritmo selecionado</th>
+            <th class="column" style="background-color: #0006">
+              Tamanho de RAM
+            </th>
+            <th class="column">String de fila de requisição</th>
+            <th class="column" style="background-color: #0006">Hits</th>
+            <th class="column">Page Faults</th>
           </tr>
         </thead>
         <tbody>
-          <td  class = "column" style="background-color: #0003"><%= tableType%></td>
-          <td class = "column"><%= ramSize%></td>
-          <td class = "column" style="background-color: #0003"><%= pageQ.join(",") %></td>
-          <td><%= pageHits%></td>
-          <td class = "column" style="background-color: #0003"><%= pageFaults%></td>
+          <tr>
+            <td class="column" style="background-color: #0003">
+              <%= tableType%>
+            </td>
+            <td class="column"><%= ramSize%></td>
+            <td class="column" style="background-color: #0003">
+              <%= pageQ.join(",") %>
+            </td>
+            <td><%= pageHits%></td>
+            <td class="column" style="background-color: #0003">
+              <%= pageFaults%>
+            </td>
+          </tr>
         </tbody>
       </table>
       <a href="http://localhost:8080">Voltar</a>
