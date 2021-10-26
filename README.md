@@ -4,7 +4,7 @@ Esse projeto compreende um programa que simula o comportamento de da Unidade de 
 
 Ele foi codificado utilizando Javascript ES6 e utilizando o Node.js como interpretador para a execução do código.
 A versão utilizada do Node.js foi a v14.7.0 LTS, para permitir reprodução posterior do código.
-
+Repositório do GitHub: [jsSimuladordepaginacao](https://github.com/mecharazick/jsSimuladordepaginacao)
 # Sumário
 
 1 - [Como utilizar](https://github.com/mecharazick/jsSimuladordepaginacao#como-utilizar)
