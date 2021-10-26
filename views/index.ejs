@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        font-size: large;
+        font-family: "Times New Roman", Times, serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .radioGroup {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+        align-items: center;
+        width: 8%;
+      }
+      .radioGroup > .radio {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .btn {
+        font-size: medium;
+        margin-top: 5px;
+        border: 1px solid #000;
+        background-color: #ccc;
+        width: 60px;
+        height: 40px;
+        border-radius: 20%;
+      }
+      .btn:hover {
+        transform: translateY(1px);
+      }
+    </style>
+    <title>MMU</title>
+  </head>
+  <body>
+    <form
+      id="options"
+      action="http://localhost:8080"
+      method="post"
+      target="_self"
+      style="
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <h1 style="margin-bottom: 5px">Simulador de paginação</h1>
+      <p style="margin-bottom: 5px">Escolha um algoritmo para utilizar</p>
+      <div name="inputGroup">
+        <label for="ramSize">Tamanho de quadros: (min:1, max: 7)</label>
+        <input
+          style="text-align: end"
+          type="number"
+          name="ramSize"
+          min="1"
+          max="7"
+          value="1"
+          required
+        />
+      </div>
+      <div name="inputGroup">
+        <label for="pageQSize">Número de páginas requeridas: </label>
+        <input
+          style="text-align: end"
+          type="number"
+          name="pageQSize"
+          value="1"
+          min="1"
+          max="50"
+          required
+        />
+      </div>
+      <div name="radioGroup" class="radioGroup">
+        <div class="radio">
+          <label for="FIFO">FIFO</label>
+          <input
+            type="radio"
+            id="FIFO"
+            name="tableType"
+            value="fifo"
+            required
+          />
+        </div>
+        <div class="radio">
+          <label for="OTM">OTM</label>
+          <input type="radio" id="OTM" name="tableType" value="otm" required />
+        </div>
+        <div class="radio">
+          <label for="SC">SC</label>
+          <input type="radio" id="SC" name="tableType" value="sc" required />
+        </div>
+        <div class="radio">
+          <label for="LRU">LRU</label>
+          <input type="radio" id="LRU" name="tableType" value="lru" required />
+        </div>
+        <div class="radio">
+          <label for="WSM">WSM</label>
+          <input type="radio" id="WSM" name="tableType" value="wsm" disabled />
+        </div>
+      </div>
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+  </body>
+</html>

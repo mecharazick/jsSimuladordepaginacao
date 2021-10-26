@@ -57,6 +57,7 @@ class MMU {
         continue; //Dá continuidade ao processo
       }
     }
+    return { pageHits: this.hits["fifo"], pageFaults: this.pageFaults["fifo"] };
   }
   otm(pageRequestQueue) {
     this.initEnvironment();
@@ -119,6 +120,7 @@ class MMU {
         continue; //Dá continuidade ao processo
       }
     }
+    return { pageHits: this.hits["otm"], pageFaults: this.pageFaults["otm"] };
   }
 
   lru(pageRequestQueue) {
@@ -156,6 +158,7 @@ class MMU {
         continue; //Dá continuidade ao processo
       }
     }
+    return { pageHits: this.hits["lru"], pageFaults: this.pageFaults["lru"] };
     function manipStack(stack, page) {
       let filteredStack = stack.filter((item) => {
         return item !== page;
@@ -171,8 +174,8 @@ class MMU {
     for (let i = 0; i < pageRequestQueue.length; i++) {
       if (this.pageTable.checkIfPageInMemory(pageRequestQueue[i])) {
         this.hits["sc"] += 1;
-        pageReferenceTable = pageReferenceTable.map(item => {
-          if(item.page === pageRequestQueue[i]) item.refBit = 1;
+        pageReferenceTable = pageReferenceTable.map((item) => {
+          if (item.page === pageRequestQueue[i]) item.refBit = 1;
           return item;
         });
         //Caso a página já esteja na memória, passa para a próxima requisição de página na fila
@@ -182,14 +185,16 @@ class MMU {
         let freeFrame = this.frameTable.getFreeSlot();
         if (freeFrame === -1) {
           let scPage;
-          while(pointer < pageReferenceTable.length){
-            if(pageReferenceTable[pointer].refBit === 0){
+          while (pointer < pageReferenceTable.length) {
+            if (pageReferenceTable[pointer].refBit === 0) {
               scPage = pageReferenceTable[pointer].page;
-              pointer = pointer === pageReferenceTable.length - 1 ? 0 : pointer + 1;
+              pointer =
+                pointer === pageReferenceTable.length - 1 ? 0 : pointer + 1;
               break;
-            } 
+            }
             pageReferenceTable[pointer].refBit = 0;
-            pointer = pointer === pageReferenceTable.length - 1 ? 0 : pointer + 1;
+            pointer =
+              pointer === pageReferenceTable.length - 1 ? 0 : pointer + 1;
           }
           //Removendo a página vítima da memória
           const pageFrame = this.pageTable.getPageFrame(scPage);
@@ -207,15 +212,14 @@ class MMU {
         this.pageTable.setFrame(pageRequestQueue[i], freeFrame); //Atualizando referência de páginas
         pageReferenceTable[freeFrame] = {
           page: pageRequestQueue[i],
-          refBit: 0
+          refBit: 0,
         };
         continue; //Dá continuidade ao processo
       }
     }
+    return { pageHits: this.hits["sc"], pageFaults: this.pageFaults["sc"] };
   }
-  wsm(pageRequestQueue) {
-
-  }
+  wsm(pageRequestQueue) {}
 }
 
 module.exports = MMU;
