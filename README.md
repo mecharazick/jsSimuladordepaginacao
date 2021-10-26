@@ -5,7 +5,11 @@ Esse projeto compreende um programa que simula o comportamento de da Unidade de 
 Ele foi codificado utilizando Javascript ES6 e utilizando o Node.js como interpretador para a execução do código.
 A versão utilizada do Node.js foi a v14.7.0 LTS, para permitir reprodução posterior do código.
 
-# Como utilizar
+
+# Sumário
+1 - [Como utilizar](https://github.com/mecharazick/jsSimuladordepaginacao#ComoUtilizar)
+
+# ComoUtilizar
 
 Para executar os códigos basta ter a versão correta do Node.js e, com o terminal na pasta do projeto (A que engloba as pastas src e views e os arquivos index.js, package.json e etc), baixar as dependências dele, que permitem seu uso.
 ```
@@ -27,6 +31,11 @@ npm start
 ```
 
 Isso inicia a execução do código utilizando do nodemon, um daemon que inicializa o código rapidamente e se mantém vigiando o código para reiniciá-lo em falhas ou mudanças.
+
+Para matar o processo do nodemon, basta ir no terminal que está rodando ele e utilizar 
+```
+Ctrl + C
+```
 # Dependências
 
 As dependências utilizadas no projeto são o acima mencionado Nodemon, o express, o cors e o ejs.
@@ -35,7 +44,20 @@ O express é utilizado para prover ferramentas robustas para servidores HTTP, se
 Por isso ele foi selecionado e utilizado no projeto para inicializar um servidor HTTP no computador do usuário na porta 8080 e prover, ao ser acessado, páginas html construídas em ejs para chamar as funcionalidades do site.
 O cors é uma dependência utilizada para configurar as políticas cors utilizadas pelo express.
 O ejs é uma dependência utilizada para construir o conteuído estático utilizando ejs que é um híbrido de html e javascript.
-# Estrutura
+
+# Estrutura do projeto
+
+Esse projeto consiste da página principal que contém o arquivo central que inicializa o projeto (o "index.js"), os arquivos package.json que é utilizado pelo Node.js para identificar as configuraçõs do projeto e o arquivo .gitignore para impedir que as dependências do projeto, na pasta node_modules, sejam enviadas para o git pois consistem de arquivos facilmente baixados pelo Node.js e que ocupam espaço desnecessário no repositório.
+Além disso, há 3 pastas: "node_modules" que armazena as dependências utilizadas pelo Node.js, a pasta "views" que contém a parte de conteúdo estático que é provida pelo express ao acessar as páginas http na rota do localhost que ele utiliza e por fim a pasta src que contém os scripts principais do projeto.
+Em src há os scripts de funcionalidades do projeto, sendo eles o routes.js que configura as rotas http acessáveis e o que cada uma delas fará ao ser acessada, o MMU.js, o qual contém a definição da classe MMU e implementação dos algoritmos de substituição de página, e os scripts de utilidades em "utils", com a função de geração de seguência aleatória de referências de página, e os scripts de definição das classes PageTable e FrameTable em "Tables".
+Cada script se comunica com o outro através das chamadas:
+```
+require("caminho relativo do script") //Essa função importa o que estiver sendo exportado no script requerido
+
+module.exports //Objeto de conteúdo exportável por um sript, ao ser atribuída alguma informação a ele, essa
+//informação poderá ser lida no script em que houver uma referência de require apontando para esse script.
+```
+# Estrutura do simulador
 
 Para a parte funcional do projeto, temos 3 classes representando entidades do SO: a classe principal MMU que representa a unidade de gerenciamento de memória e contém métodos e atributos atribuídos ao MMU e por isso é nessa classe em que estão implementados os algoritmos de substituição de página; a classe PageTable que contém métodos e atributos atribuídos à tabela de páginas; e a classe FrameTable, que contém métodos e atributos atribuídos à tabela de quadros.
 
@@ -76,3 +98,11 @@ para cada página da fila de requisição faça{
     }
 }
 ```
+
+# Referências
+{1} [Node.js](https://nodejs.org/en/about/)
+{2} [express](https://expressjs.com)
+{3} [cors](https://www.npmjs.com/package/cors)
+{4} [nodemon](https://www.npmjs.com/package/nodemon)
+{5} [ejs](https://ejs.co)
+{6} 
