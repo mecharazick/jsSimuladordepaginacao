@@ -62,6 +62,11 @@ Ctrl + C
 
 Na página do projeto no navegador, utilizar do menu para selecionar quais as configurações desejadas para a execução do algoritmo, sendo que caso se deseje usar a fila pré-configurada de testes que também utiliza como tamanho da memória física de 4 quadros, basta selecionar o algoritmo a utilizar e marcar a caixa de seleção "Usar teste pré-configurado"
 
+A fila de requisição de página utilizada nesse teste é a seguinte: 
+```
+[1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5]
+```
+
 # Dependências
 
 As dependências utilizadas no projeto são o acima mencionado Nodemon, o express, o cors e o ejs.
