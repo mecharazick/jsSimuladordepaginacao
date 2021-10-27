@@ -151,12 +151,14 @@ Dessa forma, ele consegue manter em memória apenas as páginas mais recentement
 
 # Referências
 
-{1} [Node.js](https://nodejs.org/en/about/)
+{1} Abraham Silberschatz, Peter Galvin e Greg Gagne. Sistemas Operacionais Editora Campus, 2000.
 
-{2} [express](https://expressjs.com)
+{2} [Node.js](https://nodejs.org/en/about/)
 
-{3} [cors](https://www.npmjs.com/package/cors)
+{3} [express](https://expressjs.com)
 
-{4} [nodemon](https://www.npmjs.com/package/nodemon)
+{4} [cors](https://www.npmjs.com/package/cors)
 
-{5} [ejs](https://ejs.co)
+{5} [nodemon](https://www.npmjs.com/package/nodemon)
+
+{6} [ejs](https://ejs.co)
