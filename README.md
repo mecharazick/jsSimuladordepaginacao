@@ -15,6 +15,11 @@ Ele foi codificado utilizando Javascript ES6 e utilizando o Node.js como interpr
 A versão utilizada do Node.js foi a v14.7.0 LTS, para permitir reprodução posterior do código.
 
 Repositório do GitHub: [jsSimuladordepaginacao](https://github.com/mecharazick/jsSimuladordepaginacao)
+
+```
+Notice: A simulação de paginação utilizando um Working-Set Model está incorreta, favor relevá-la. 
+```
+
 # Sumário
 
 1 - [Como utilizar](https://github.com/mecharazick/jsSimuladordepaginacao#como-utilizar)
